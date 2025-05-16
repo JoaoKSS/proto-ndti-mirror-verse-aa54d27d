@@ -69,14 +69,10 @@ const NavBar: React.FC = () => {
     { name: "Contato", link: "#contato", id: "contato" }
   ];
 
-  // Check if we're on a page that needs dark text regardless of scroll
-  const isNonHomePage = window.location.pathname !== '/';
-  const needsDarkText = isNonHomePage || isScrolled;
-
   return (
     <nav className={cn(
       "fixed w-full z-50 transition-all duration-300",
-      isScrolled || isNonHomePage ? "bg-white/95 backdrop-blur-sm shadow-md" : "bg-transparent"
+      isScrolled ? "bg-white/95 backdrop-blur-sm shadow-md" : "bg-transparent"
     )}>
       <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
@@ -84,11 +80,11 @@ const NavBar: React.FC = () => {
             <Link to="/" className="flex items-center space-x-2">
               <span className={cn(
                 "text-xl font-bold transition-colors duration-300",
-                needsDarkText ? "text-ifnmg-blue" : "text-white"
+                isScrolled ? "text-ifnmg-blue" : "text-white"
               )}>NDTI</span>
               <span className={cn(
                 "hidden sm:block text-sm transition-colors duration-300",
-                needsDarkText ? "text-gray-600" : "text-gray-200"
+                isScrolled ? "text-gray-600" : "text-gray-200"
               )}>IFNMG Campus Montes Claros</span>
             </Link>
           </div>
@@ -103,7 +99,7 @@ const NavBar: React.FC = () => {
                       "transition-all duration-300 hover:text-ifnmg-blue relative",
                       activeSection === item.id || item.dropdown.some(d => d.id === activeSection)
                         ? "text-ifnmg-blue font-medium" 
-                        : needsDarkText ? "text-gray-600" : "text-white"
+                        : isScrolled ? "text-gray-600" : "text-white"
                     )}>
                       {item.name}
                       <span className={cn(
@@ -113,7 +109,7 @@ const NavBar: React.FC = () => {
                     </span>
                     <ChevronDown className={cn(
                       "ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180",
-                      needsDarkText ? "text-gray-600" : "text-white"
+                      isScrolled ? "text-gray-600" : "text-white"
                     )} />
                     <div className="absolute hidden group-hover:block top-full left-0 bg-white/95 backdrop-blur-sm p-2 shadow-md rounded min-w-[150px] transform origin-top scale-95 group-hover:scale-100 transition-transform duration-200">
                       {item.dropdown.map((dropItem) => (
@@ -140,7 +136,7 @@ const NavBar: React.FC = () => {
                         "transition-all duration-300 hover:text-ifnmg-blue relative",
                         activeSection === item.id 
                           ? "text-ifnmg-blue font-medium" 
-                          : needsDarkText ? "text-gray-600" : "text-white"
+                          : isScrolled ? "text-gray-600" : "text-white"
                       )}
                     >
                       {item.name}
@@ -157,7 +153,7 @@ const NavBar: React.FC = () => {
                         "transition-all duration-300 hover:text-ifnmg-blue relative",
                         activeSection === item.id 
                           ? "text-ifnmg-blue font-medium" 
-                          : needsDarkText ? "text-gray-600" : "text-white"
+                          : isScrolled ? "text-gray-600" : "text-white"
                       )}
                     >
                       {item.name}
@@ -178,7 +174,7 @@ const NavBar: React.FC = () => {
               onClick={toggleMenu} 
               className={cn(
                 "transition-colors duration-300 focus:outline-none p-2",
-                needsDarkText ? "text-gray-600 hover:text-ifnmg-blue" : "text-white hover:text-gray-300"
+                isScrolled ? "text-gray-600 hover:text-ifnmg-blue" : "text-white hover:text-gray-300"
               )}
               aria-label="Toggle Menu"
             >

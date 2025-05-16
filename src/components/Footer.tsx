@@ -1,12 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Facebook, Instagram, Youtube, Twitter, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import useAuth from '@/hooks/useAuth';
 
 const Footer: React.FC = () => {
-  const { user, isAdmin } = useAuth();
-  
   return (
     <footer className="bg-ndti-950 text-white">
       <div className="container mx-auto px-4 py-12">
@@ -52,28 +48,6 @@ const Footer: React.FC = () => {
               <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Portal do Aluno</a></li>
               <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Portal do Servidor</a></li>
               <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Biblioteca Virtual</a></li>
-              {isAdmin ? (
-                <li>
-                  <Link to="/admin/cms" className="text-gray-300 hover:text-white transition-colors">
-                    Admin CMS
-                  </Link>
-                </li>
-              ) : (
-                user && (
-                  <li>
-                    <Link to="/admin/login" className="text-gray-300 hover:text-white transition-colors">
-                      Área Administrativa
-                    </Link>
-                  </li>
-                )
-              )}
-              {!user && (
-                <li>
-                  <Link to="/admin/login" className="text-gray-300 hover:text-white transition-colors">
-                    Login
-                  </Link>
-                </li>
-              )}
             </ul>
           </div>
           
