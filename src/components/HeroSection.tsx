@@ -2,8 +2,11 @@
 import React from 'react';
 import { ArrowRight, Sparkles, Zap, Globe } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { useContentData } from '@/hooks/useContentData';
 
 const HeroSection: React.FC = () => {
+  const { content, loading, error } = useContentData('home', 'hero');
+
   return (
     <section id="hero" className="relative pt-20 sm:pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-24 overflow-hidden bg-gradient-to-br from-ndti-950 via-ndti-900 to-ndti-800">
       {/* Decorative elements */}
@@ -20,14 +23,18 @@ const HeroSection: React.FC = () => {
           <div className="w-full md:w-1/2 mb-10 md:mb-0 animate-fade-in">
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-white mb-6 group cursor-pointer transition-all hover:bg-white/20">
               <Sparkles className="w-4 h-4 mr-2 group-hover:text-yellow-300 transition-colors" />
-              <span>Transformando ideias em inovação</span>
+              <span>{content?.subtitle || 'Transformando ideias em inovação'}</span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white leading-tight">
-              Núcleo de <span className="text-transparent bg-clip-text bg-gradient-to-r from-ndti-300 to-ifnmg-blue">Desenvolvimento</span> Tecnológico e Inovação
+              {content?.title || (
+                <>
+                  Núcleo de <span className="text-transparent bg-clip-text bg-gradient-to-r from-ndti-300 to-ifnmg-blue">Desenvolvimento</span> Tecnológico e Inovação
+                </>
+              )}
             </h1>
             <p className="text-md sm:text-lg md:text-xl text-gray-200 mb-6 md:mb-8 leading-relaxed max-w-lg">
-              Transformando ideias em soluções tecnológicas inovadoras para o IFNMG Campus Montes Claros e toda comunidade.
+              {content?.content || 'Transformando ideias em soluções tecnológicas inovadoras para o IFNMG Campus Montes Claros e toda comunidade.'}
             </p>
             <div className="flex flex-wrap gap-4">
               <a 
@@ -52,7 +59,7 @@ const HeroSection: React.FC = () => {
               <div className="relative bg-ndti-900/50 backdrop-blur-sm p-2 sm:p-4 rounded-lg shadow-2xl border border-white/10">
                 <AspectRatio ratio={16/10} className="overflow-hidden rounded-lg">
                   <img 
-                    src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" 
+                    src={content?.image_url || "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789"}
                     alt="Inovação Tecnológica" 
                     className="rounded-lg w-full h-full object-cover transform transition-transform hover:scale-105 duration-500 ease-in-out"
                     loading="lazy"
